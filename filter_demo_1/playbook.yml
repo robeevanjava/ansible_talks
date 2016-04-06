@@ -3,9 +3,23 @@
   hosts: all
   gather_facts: True
 
-  tasks:
-    - name: Debug ansible_user variable
-      debug: msg={{ ansible_user | default(ansible_user_id)}}
+  vars:
+    - my_var: "ansible jakarta"
 
-    - name: Debug ansible env variable
-      debug: msg={{ ansible_env|to_yaml }}
+  tasks:
+    - debug: msg={{ ansible_user | default(ansible_user_id) }}
+
+    - debug: msg="{{ 'this is ubuntu' if ansible_distribution | lower == 'ubuntu' else 'not ubuntu, meh!'}}"
+
+    - debug: msg="Processor core ** 3 = {{ ansible_processor_cores ** 3 | default(0) }}"
+
+    - debug: msg="{{ my_var | hash('md5') }}"
+
+    - debug: msg="{{ my_var.split(' ')[0] | hash('md5') }}"
+
+    - file: dest={{ item.path }} state=touch mode={{ item.mode| default(omit) }}
+      with_items:
+        - path: "/tmp/test"
+        - path: "/tmp/test1"
+        - path: "/tmp/test2"
+          mode: "0755"
