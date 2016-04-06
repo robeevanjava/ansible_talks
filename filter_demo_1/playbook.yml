@@ -1,0 +1,11 @@
+---
+- name: Jinja2 Filter Demo 1
+  hosts: all
+  gather_facts: True
+
+  tasks:
+    - name: Debug ansible_user variable
+      debug: msg={{ ansible_user | default(ansible_user_id)}}
+
+    - name: Debug ansible env variable
+      debug: msg={{ ansible_env|to_yaml }}
