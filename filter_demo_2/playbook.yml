@@ -1,0 +1,11 @@
+---
+- name: copy sample nginx config files
+  hosts: local
+  gather_facts: true
+
+  vars:
+    main_page: /tmp/nginx/html/index.html
+
+  tasks:
+    - name: copy main source code
+      copy: src=files/{{ main_page | basename }} dest={{ main_page }}

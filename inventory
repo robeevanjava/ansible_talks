@@ -1,2 +1,8 @@
 [local]
 127.0.0.1
+
+[mac]
+10.11.9.242 ansible_user=neo ansible_port=22
+
+[woi]
+10.11.9.116 ansible_user=woi
