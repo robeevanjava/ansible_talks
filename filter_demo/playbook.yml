@@ -1,6 +1,7 @@
 ---
 - name: Jinja2 Filter Demo 1
-  hosts: local
+  hosts: localhost
+  connection: local
   gather_facts: True
 
   vars:
