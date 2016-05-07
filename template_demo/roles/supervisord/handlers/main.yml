@@ -1,0 +1,3 @@
+- name: restart supervisor
+  command: /etc/init.d/supervisor restart
+  tags: worker_supervisord

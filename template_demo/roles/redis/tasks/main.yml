@@ -1,0 +1,24 @@
+- name: Add ubuntu key server for redis
+  apt_key: data="{{ lookup('file', 'redis.key.gpg') }}" state=present
+  tags: redis
+
+- name: Add Repository for Redis
+  apt_repository: repo='ppa:chris-lea/redis-server' update_cache=yes
+  tags: redis
+
+- name: Allow overcommit memory
+  sysctl: name=vm.overcommit_memory value=1
+  tags: redis
+
+- name: Install Redis
+  apt: pkg=redis-server state=latest
+  tags: redis
+
+# Need this for now, so that analisis-web's cache can be purged from analisis-worker
+- name: Modify redis config to listen on all interfaces
+  lineinfile:
+    dest: /etc/redis/redis.conf
+    regexp: '^bind '
+    line: 'bind 0.0.0.0'
+  notify: restart redis-server
+  tags: redis

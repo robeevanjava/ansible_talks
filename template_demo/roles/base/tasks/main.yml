@@ -1,0 +1,22 @@
+- name: Enable local mirror sources apt
+  copy: src="sources.list" dest="/etc/apt/sources.list" owner=root group=root mode=0644 backup=yes
+
+- name: Get an update after modifying the sources
+  apt: update_cache=yes
+
+- name: Install base apps and development tools
+  apt: pkg={{item}} state=installed
+  with_items: "{{ base_packages }}"
+
+- name: Add locale settings
+  copy: src="locale" dest="/etc/default/locale" owner=root group=root mode=0644
+  tags: add_local_id
+
+- name: Add locale for id_ID
+  become: yes
+  shell: locale-gen id_ID
+  tags: add_local_id
+
+- name: Configure Timezone
+  command: dpkg-reconfigure --frontend noninteractive tzdata
+  tags: add_local_id

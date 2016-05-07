@@ -1,0 +1,6 @@
+base_packages:
+ - python-pip
+ - python-dev
+ - python-software-properties
+ - unzip
+ - redis-tools

@@ -1,0 +1,25 @@
+- name: Add ubuntu key server for nginx
+  apt_key: data="{{ lookup('file', 'nginx.key.gpg') }}" state=present
+  tags: nginx
+
+- name: Adds repo nginx repo
+  apt_repository: repo='ppa:nginx/development' update_cache=yes state=present
+  tags: nginx
+
+- name: Install nginx webserver
+  apt: pkg={{item}} update_cache=yes state=latest
+  with_items:
+      - nginx-extras
+  tags: nginx
+
+- name: Setup configuration for nginx webserver
+  template: src="nginx.conf" dest="/etc/nginx/nginx.conf"
+  tags: nginx
+
+- name: Remove nginx default site-enabled
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  tags: nginx
+
+- name: Remove nginx default site-available
+  file: path=/etc/nginx/sites-available/default state=absent
+  tags: nginx

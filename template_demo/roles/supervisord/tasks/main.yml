@@ -1,0 +1,18 @@
+- name: Install supervisord
+  apt: pkg={{ item }} state=installed
+  with_items:
+   - supervisor
+  tags: thumbor_supervisord
+
+- name: Enable thumbor conf for supervisor
+  template: src="thumbor.conf" dest="/etc/supervisor/conf.d/thumbor.conf" owner=root group=root mode=0644
+  tags: thumbor_supervisord
+
+- name: Copy supervisor configuration
+  template: src=supervisord.conf dest="/etc/supervisor/supervisord.conf" owner=root group=root mode=0644
+  tags: thumbor_supervisord
+
+- name: Enable supervisor
+  become: yes
+  shell: /etc/init.d/supervisor restart
+  tags: thumbor_supervisord

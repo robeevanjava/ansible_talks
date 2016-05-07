@@ -1,0 +1,27 @@
+- name: Remove any pre-installed ffmpeg and x264
+  apt: pkg={{item}} state=absent
+  with_items: '{{ old_packages }}'
+  tags: thumbor
+
+- name: Install dependency
+  apt: pkg={{item}} update_cache=yes state=latest
+  with_items: '{{ thumbor_deps }}'
+  tags: thumbor
+
+- name: Install pip
+  pip: name={{ item }} state=present
+  become: yes
+  with_items: '{{ thumbor_pip }}'
+  tags: thumbor
+
+- name: Install thumbor with spesific version
+  pip: name=thumbor version=6.0.1
+  tags: thumbor
+
+- name: Setup configuration for thumbor
+  template: src="thumbor.conf" dest="/etc/thumbor.conf" owner=root group=root mode=0644
+  tags: thumbor
+
+- name: Copy robots.txt to thumbor instance
+  copy: src="roles/thumbor/files/robots.txt" dest="/usr/share/nginx/html/robots.txt" owner=root group=root mode=0644
+  tags: thumbor

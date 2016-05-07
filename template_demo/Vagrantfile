@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu_trusty64"
+  config.vm.hostname = "thumbor"
+  config.vm.network :forwarded_port, guest: 8081, host: 8081
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb|
+    # Don't boot with headless mode
+    # vb.gui = true
+
+    # Use VBoxManage to customize the VM. For example to change memory:
+    vb.customize ["modifyvm", :id, "--memory",  "6144"]
+    vb.customize ["modifyvm", :id, "--acpi",    "on"]
+    vb.customize ["modifyvm", :id, "--ioapic",  "off"]
+    vb.customize ["modifyvm", :id, "--cpus",    "2"]
+  end
+  config.vm.provision "ansible" do |ansible|
+    ansible.host_key_checking = false
+    ansible.playbook = "playbook.yml"
+    ansible.limit = 'all'
+    ansible.verbose = 'vv'
+  end
+end

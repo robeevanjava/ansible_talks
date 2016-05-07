@@ -1,0 +1,14 @@
+---
+- name: nginx plus thumbor installation
+  hosts: all
+  user: vagrant
+  become: yes
+  gather_facts: True
+
+  roles:
+    - { role: base }
+    - { role: redis }
+    - { role: nginx }
+    - { role: thumbor }
+    - { role: supervisord }
+    - { role: vhost }

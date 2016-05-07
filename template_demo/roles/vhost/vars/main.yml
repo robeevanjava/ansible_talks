@@ -1,0 +1,3 @@
+nginx_listen_port_thumbor: 8081
+server_name: thumbor.lan
+process_num: 2

@@ -1,0 +1,16 @@
+upstream thumbor {
+{% for n in range(process_num) %}
+  server 127.0.0.1:700{{ loop.index0 }};
+{% endfor %}
+}
+server {
+  listen {{ nginx_listen_port_thumbor }};
+  server_name {{ server_name }};
+  location ~ ^\/(robots.txt) {
+    root /usr/share/nginx/html/;
+  }
+
+  location / {
+    proxy_pass http://thumbor;
+  }
+}
