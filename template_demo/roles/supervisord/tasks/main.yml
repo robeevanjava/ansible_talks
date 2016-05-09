@@ -1,7 +1,5 @@
 - name: Install supervisord
-  apt: pkg={{ item }} state=installed
-  with_items:
-   - supervisor
+  apt: pkg=supervisor state=installed
   tags: thumbor_supervisord
 
 - name: Enable thumbor conf for supervisor
@@ -10,9 +8,5 @@
 
 - name: Copy supervisor configuration
   template: src=supervisord.conf dest="/etc/supervisor/supervisord.conf" owner=root group=root mode=0644
-  tags: thumbor_supervisord
-
-- name: Enable supervisor
-  become: yes
-  shell: /etc/init.d/supervisor restart
+  notify: restart supervisor
   tags: thumbor_supervisord

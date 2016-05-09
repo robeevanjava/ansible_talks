@@ -1,5 +1,5 @@
 upstream thumbor {
-{% for n in range(process_num) %}
+{% for n in range(ansible_processor_cores) %}
   server 127.0.0.1:700{{ loop.index0 }};
 {% endfor %}
 }

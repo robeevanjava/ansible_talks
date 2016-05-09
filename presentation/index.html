@@ -52,8 +52,34 @@
     <section class="slide">
       <h2>Jinja2 in Ansible</h2>
       <ul>
-          <li>Variables + Filters in Roles (Task / Meta), Playbook</li>
-          <li>Templates in Roles</li>
+          <li>
+            Variables + Filters in Roles (Task / Meta), Playbook
+            <p>
+                <code>{{ variable_1 }}</code>
+                <br>
+                <code>{{ ansible_user | upper }}</code>
+                <br>
+                <code>{{ ansible_user | default('user_x') }}</code>
+                <br>
+                <code>{{ ansible_eth0["ipv4"]["address"] }}</code>
+            </p>
+          </li>
+
+          <li>Templates in Roles
+            <p>
+                <code>
+                     {% if 'webserver' in group_names %}
+                         # some part of a configuration file that only applies to webservers
+                     {% endif %}
+                </code><br>
+                <code>
+                     {% for host in groups['app_servers'] %}
+                        # something that applies to all app servers.
+                     {% endfor %}
+                </code>
+            </p>
+          </li>
+
       </ul>
     </section>
 

@@ -23,5 +23,5 @@
   tags: thumbor
 
 - name: Copy robots.txt to thumbor instance
-  copy: src="roles/thumbor/files/robots.txt" dest="/usr/share/nginx/html/robots.txt" owner=root group=root mode=0644
+  copy: src="robots.txt" dest="/usr/share/nginx/html/robots.txt" owner=root group=root mode=0644
   tags: thumbor
