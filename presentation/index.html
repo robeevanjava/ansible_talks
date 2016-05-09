@@ -50,6 +50,32 @@
     </section>
 
     <section class="slide">
+      <h2>Jinja2 Template Designer</h2>
+      <ul>
+        <li>Variables : <code>{{ foo }}</code></li>
+        <li>Filters : <code>{{ foo | lower }}</code></li>
+        <li>Tests : <code>{% if variable is defined %}</code></li>
+        <li>Comments : <code>{# ... #}</code></li>
+        <li>Template Inheritance : <code>{% extends .... %} {% block title %} .. {% endblock %}</code></li>
+        <li>Control Structure : <code>{% if xxx == xxx %}{% endif %}{% for user in users %}{% endfor %}</code>
+          <br><code>{% macro foo(blah) %}{% endmacro %}{% call foo('ouch') %}{% endcall %}</code>
+        </li>
+        <li>Literals : <code>"String" 12345 123.45 [1, 2, 3] (1, 2, 3) {'dict': 123} true</code>
+          <br><code>{% for k, v in [('one', 'satu'), ('two', 'dua')] %} {{ k }} = {{ v }}{% endfor %}</code>
+        </li>
+      </ul>
+    </section>
+
+    <section class="slide">
+      <h2>Jinja2 Template Designer (Cont'd)</h2>
+      <ul>
+        <li>Math : <code>{{ foo * 3 }}</code></li>
+        <li>Comparison : <code>{% if foo == 1 %}</code></li>
+        <li>Logic : <code>and or not</code></li>
+      </ul>
+    </section>
+
+    <section class="slide">
       <h2>Jinja2 in Ansible</h2>
       <ul>
           <li>
@@ -95,7 +121,11 @@
     
     <section class="slide">
       <h2>Thanks</h2>
-      <h4>Robertus Suseno, Ops at KMKLabs</h4>
+      <h4>Robertus Negoro, Ops at KMKLabs</h4>
+      <ul>
+        <li>https://github.com/robeevanjava/ansible_talks</li>
+        <li>http://jinja.pocoo.org/docs/dev/templates/</li>
+      </ul>
     </section>
     <!-- End slides. -->
 
